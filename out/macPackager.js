@@ -300,6 +300,13 @@ class MacPackager extends _platformPackager().PlatformPackager {
     const options = masOptions == null ? this.platformSpecificBuildOptions : masOptions;
     const qualifier = options.identity;
 
+    if (isMas) {
+      for (const dir of require('glob').sync(`${appPath}/**/app.asar.unpacked`)) {
+        console.error(`Removing ${dir}`);
+        require('rimraf').sync(dir);
+      }
+    }
+
     if (!isMas && qualifier === null) {
       if (this.forceCodeSigning) {
         throw new (_builderUtil().InvalidConfigurationError)("identity explicitly is set to null, but forceCodeSigning is set to true");
