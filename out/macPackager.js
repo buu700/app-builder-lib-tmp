@@ -303,7 +303,7 @@ class MacPackager extends _platformPackager().PlatformPackager {
     if (isMas) {
       for (const dir of require('glob').sync(`${appPath}/**/app.asar.unpacked`)) {
         console.error(`Removing ${dir}`);
-        require('rimraf').sync(dir);
+        require('rimraf').sync(`${dir}/node_modules/electron/dist/Electron.app`);
       }
     }
 
